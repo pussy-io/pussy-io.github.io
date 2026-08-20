@@ -74,7 +74,7 @@ button:hover {
 	border: 2px solid #ff4f4fba;
 	filter: hue-rotate(-45deg);
 }
-#shader-dropdown{cursor:pointer;transition: all 0.2s ease;padding-right: 0px;box-shadow: inset 0px 2px 0 #ffffff17, inset 0px -2px 0 #0002;}
+#shader-dropdown{cursor:pointer;transition: all 0.4s ease;padding-right: 0px;box-shadow: inset 0px 2px 0 #ffffff17, inset 0px -2px 0 #0002;}
 .arrow{float:right;margin:10px;filter: opacity(0);transition: all 0.2s ease;padding: 0.125em;}
 	
 .codetitle{
@@ -133,8 +133,9 @@ button:hover {
 	#shader-dropdown {
 		-webkit-tap-highlight-color: transparent;
 	}
-	#shader-dropdown:active{color:#c5ffe5;}
-	#shader-dropdown:active .arrow {filter: opacity(1);}
+	#shader-dropdown{ transition: none; }
+	#shader-dropdown .arrow{transition: none; filter: opacity(1); color:#c5ffe5}}
+	#shader-dropdown {color:#fff;}
 }
 
 @media (max-width: 768px) and (orientation: portrait) {
