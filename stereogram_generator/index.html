@@ -5,162 +5,155 @@
     <title>Шейдерный генератор стереограмм</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <style>
-		html {font-size: 100%; min-height: 100vh;}
-        body {
-		
-		
-			margin: 0;
-			background: #000;
-
-			min-height: 100vh;
-  
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    box-sizing: border-box;
-
-		    flex-direction: column;
-			font-family: "Segoe UI", Arial, sans-serif;
-			color:#fff;
-			overflow-y: auto;
-			padding: 0px;
-			font-size: 100%;
-		}
-        canvas {
-            display: block;
-			clear: both;
-        }
-		.top{
-			position: fixed;top:0;left:0;text-align:center;width:100%;background:#000;border-bottom:2px solid transparent;border-image:linear-gradient(to right, #000000, #00ddffb0 50%, #000000) 1;z-index: 10;
-		}
-		button {
-			font-family: "Segoe UI", Arial, sans-serif;
-			clear: both;
-			width: 280px;
-			margin: 30px 20px;
-			background: #000;
-			color: #ffffff;
-		    padding: 5px 26px 8px 26px;
-			border-radius: 6px;
-			font-size: 1.25em;
-			border: 2px solid #e5ff8f96;
-			cursor: pointer;
-			transition: all 0.2s ease;
-			box-shadow: inset 0 0 40px #000000ff, 0px 0px 120px #3b7f9c;
-			/*border:2px solid #31f5e696;*/
-			
-		}
-
-		button:hover {
-		
-		/*
-		  background-color: #0e475f;
-		  background-color: #006d56;
-		  box-shadow: inset 0 0px 20px #7ce1ff61, 0px 0px 120px #3b7f9c;*/
-	*/
+html {font-size: 100%; min-height: 100vh;}
+body {
+	margin: 0;
+	background: #000;
 	
+	min-height: 100vh;  
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+
+	flex-direction: column;
+	font-family: "Segoe UI", Arial, sans-serif;
+	color:#fff;
+	overflow-y: auto;
+	padding: 0px;
+	font-size: 100%;
+}
+canvas {
+	display: block;
+	clear: both;
+}
+.top{
+	position: fixed;
+	top:0;
+	left:0;
+	text-align:center;
+	width:100%;
+	background:#000;
+	border-bottom:2px solid transparent;
+	border-image:linear-gradient(to right, #000000, #00ddffb0 50%, #000000) 1;
+	z-index: 10;
+}
+button {
+	font-family: "Segoe UI", Arial, sans-serif;
+	clear: both;
+	width: 280px;
+	margin: 30px 20px;
+	background: #000;
+	color: #ffffff;
+	padding: 5px 26px 8px 26px;
+	border-radius: 6px;
+	font-size: 1.25em;
+	border: 2px solid #e5ff8f96;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: inset 0 0 40px #000000ff, 0px 0px 120px #3b7f9c;
+}
+
+button:hover {
 	background-color: #000000;
-    box-shadow: inset 0 0 40px #00ebff8a, 0px 0px 120px #3b7f9c;
-    border: 2px solid #8ffff196;
-		}
-		#my-editor-div{
-			background:#000000e7;
-			position: fixed;
-			width: 100%;
-			left: 0;
-			bottom:0;
-		}
-		#my-editor-div button {
-			border: 2px solid #ff4f4fba;
-		    box-shadow: inset 0 0 40px #00000000, 0px 0px 30px #ff7c7c14;
-			position: fixed;
-			right: 20px;
-			bottom: 0;
-		}
-		#my-editor-div button:hover {
-			background:#850000;
-			background-color: #000000;
-			box-shadow: inset 0 0 40px #ff00008a,  0px 0px 30px #ff7c7c14;
-			border: 2px solid #ff4f4fba;
-			filter: hue-rotate(-45deg);
-		}
-		#shader-dropdown{cursor:pointer;transition: all 0.2s ease;padding-right: 0px;}
-		#shader-dropdown:hover{color:#c5ffe5;padding-left: 42px;padding-right: 42px;}
-		.arrow{float:right;margin:10px;filter: opacity(0);transition: all 0.2s ease;}
-		#shader-dropdown:hover .arrow {filter: opacity(1);}
-		.codetitle{
-			font-weight: 500;
-			font-size: 1.25em;
-			padding: 10px;
-			display: inline-block;
-			font-weight: normal;
-		}
-		.CodeMirror{ font-size:1.2em; }
-		.cm-hidden{ display:none; }
-		.CodeMirror-linenumber {padding-left: 10px !important;padding-right: 10px !important;}
-	 .CodeMirror-line {padding-left: 10px !important;}
-	 
-	 .CodeMirror-overlayscroll-vertical div {
-		width: 8px !important;
-		border-radius: 0px !important;
-	}
-	.CodeMirror-overlayscroll-horizontal div {
-		height: 8px !important;
-		border-radius: 0px !important;
-	}
-	
-	#my-editor-div button {
-		background:#000;
-	}
-	
-	@media (max-width: 768px) {
-	  html {
+	box-shadow: inset 0 0 40px #00ebff8a, 0px 0px 120px #3b7f9c;
+	border: 2px solid #8ffff196;
+}
+#my-editor-div{
+	background:#000000e7;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	bottom:0;
+}
+#my-editor-div button {
+	border: 2px solid #ff4f4fba;
+	box-shadow: inset 0 0 40px #00000000, 0px 0px 30px #ff7c7c14;
+	position: fixed;
+	right: 20px;
+	bottom: 0;
+}
+#my-editor-div button:hover {
+	background:#850000;
+	background-color: #000000;
+	box-shadow: inset 0 0 40px #ff00008a,  0px 0px 30px #ff7c7c14;
+	border: 2px solid #ff4f4fba;
+	filter: hue-rotate(-45deg);
+}
+#shader-dropdown{cursor:pointer;transition: all 0.2s ease;padding-right: 0px;box-shadow: inset 0px 2px 0 #ffffff17, inset 0px -2px 0 #0002;}
+#shader-dropdown:hover{color:#c5ffe5;padding-left: 42px;padding-right: 42px;}
+.arrow{float:right;margin:10px;filter: opacity(0);transition: all 0.2s ease;padding: 0.125em;}
+#shader-dropdown:hover .arrow {filter: opacity(1);}
+.codetitle{
+	font-weight: 500;
+	font-size: 1.25em;
+	padding: 10px;
+	display: inline-block;
+	font-weight: normal;
+}
+.CodeMirror{ font-size:1.2em; transition: height 0.4s ease;}
+.CodeMirror.cm-hidden{ /* display:none; */ height: 0 !important; }		
+#my-editor-div button {
+	transition: all 0.2s ease;
+	background:#000;
+}		
+#my-editor-div button.cm-hidden{ opacity:0; }
+#my-editor-div button.no-display{ display:none; }
+
+.CodeMirror-linenumber {padding-left: 10px !important;padding-right: 10px !important;}
+.CodeMirror-line {padding-left: 10px !important;}
+.CodeMirror-overlayscroll-vertical div {
+	width: 8px !important;
+	border-radius: 0px !important;
+}
+.CodeMirror-overlayscroll-horizontal div {
+	height: 8px !important;
+	border-radius: 0px !important;
+}
+
+@media (max-width: 768px) {
+	html {
 		font-size: 100% !important; 
-	  }
-	  .top button{margin:5px 10px;}
-	  .top {padding:10px;}
-	  
-	  * {
+	}
+	* {
 		max-width: 100% !important;
 		box-sizing: border-box !important;
-	  }
-	  	button,
-		button:active,
-		button:focus,
-		button:hover {
-			-webkit-tap-highlight-color: transparent;
-			outline: none;
-			background: transparent; /* если нужно убрать фон */
-		}
-		#shader-dropdown {
-			-webkit-tap-highlight-color: transparent;
-		}
-		
 	}
 	
-	@media (max-width: 768px) and (orientation: portrait) {
-		.top {padding:10px;}
-		.top button{margin:5px 10px;}
-		.top div button:first-child{box-shadow:0 0 0 #000000;background:#000000; position:relative;z-index:1;}
-		.CodeMirror-lines {padding-bottom: 20px !important;}
-		#my-editor-div button {
-			
-		    bottom: -10px;
-			left: 50%;
-			margin-left: -140px !important;
-		}
+	.top button{margin:5px 10px;}
+	.top {padding:10px;}
+
+	button,
+	button:active,
+	button:focus,
+	button:hover {
+		-webkit-tap-highlight-color: transparent;
+		outline: none;
+		background: transparent; /* если нужно убрать фон */
+	}
+	#shader-dropdown {
+		-webkit-tap-highlight-color: transparent;
+	}
+}
+@media (max-width: 768px) and (orientation: portrait) {
+	.top {padding:10px;}
+	.top button{margin:5px 10px;}
+	.top div button:first-child{box-shadow:0 0 0 #000000;background:#000000; position:relative;z-index:1;}
+	.CodeMirror-lines {padding-bottom: 20px !important;}
+	#my-editor-div button {
+	bottom: -10px;
+	left: 50%;
+	margin-left: -140px !important;
+}
     </style>
 	
-		<!-- Подключаем ядро CodeMirror -->
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
-	  
-	  <!-- Подключаем подсветку JS и тёмную тему -->
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/seti.min.css">
-	  
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/scroll/simplescrollbars.min.css">
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/scroll/simplescrollbars.min.js"></script>
+    <!-- CodeMirror Editor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/seti.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/scroll/simplescrollbars.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/scroll/simplescrollbars.min.js"></script>
 </head>
 <body>
 
@@ -373,15 +366,25 @@ const editor = CodeMirror.fromTextArea(textArea, {
 
 
 const cmWrapper = editor.getWrapperElement();
-let isHidden = true; cmWrapper.classList.add('cm-hidden');
+let isHidden = true; cmWrapper.classList.add('cm-hidden'); 
 document.getElementById('shader-dropdown').addEventListener('click', function() {
 	  isHidden = !isHidden;	  
 	  if (isHidden) {
-		refreshBtn.classList.add('cm-hidden');
+		//alert('hide')
 		cmWrapper.classList.add('cm-hidden');
+		refreshBtn.classList.add('cm-hidden');
+		r//efreshBtn.classList.remove('no-display');
+		
+		setTimeout(() => { refreshBtn.classList.add('no-display'); }, 100);		
 	  } else {
-		refreshBtn.classList.remove('cm-hidden');
-		cmWrapper.classList.remove('cm-hidden');		
+		//alert('show')
+		cmWrapper.classList.remove('cm-hidden');
+		setTimeout(() => {
+			refreshBtn.classList.remove('no-display');
+			refreshBtn.classList.remove('cm-hidden');
+		}, 100);		
+		
+		//setTimeout(() => { refreshBtn.classList.remove('no-display'); }, 400);		
 		// IMPORTANT: CodeMirror needs to redraw its layout after being hidden.
 		// We wait 400ms to let the CSS transition finish before calling refresh().
 		setTimeout(() => {
