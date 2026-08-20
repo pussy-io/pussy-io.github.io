@@ -28,15 +28,7 @@ canvas {
 	clear: both;
 }
 .top{
-	position: fixed;
-	top:0;
-	left:0;
-	text-align:center;
-	width:100%;
-	background:#000;
-	border-bottom:2px solid transparent;
-	border-image:linear-gradient(to right, #000000, #00ddffb0 50%, #000000) 1;
-	z-index: 10;
+	position: fixed;top:0;left:0;text-align:center;width:100%;background:#000;border-bottom:2px solid transparent;border-image:linear-gradient(to right, #000000, #00ddffb0 50%, #000000) 1;z-index: 10;
 }
 button {
 	font-family: "Segoe UI", Arial, sans-serif;
@@ -52,6 +44,8 @@ button {
 	cursor: pointer;
 	transition: all 0.2s ease;
 	box-shadow: inset 0 0 40px #000000ff, 0px 0px 120px #3b7f9c;
+	/*border:2px solid #31f5e696;*/
+	
 }
 
 button:hover {
@@ -81,9 +75,8 @@ button:hover {
 	filter: hue-rotate(-45deg);
 }
 #shader-dropdown{cursor:pointer;transition: all 0.2s ease;padding-right: 0px;box-shadow: inset 0px 2px 0 #ffffff17, inset 0px -2px 0 #0002;}
-#shader-dropdown:hover{color:#c5ffe5;padding-left: 42px;padding-right: 42px;}
 .arrow{float:right;margin:10px;filter: opacity(0);transition: all 0.2s ease;padding: 0.125em;}
-#shader-dropdown:hover .arrow {filter: opacity(1);}
+	
 .codetitle{
 	font-weight: 500;
 	font-size: 1.25em;
@@ -91,7 +84,7 @@ button:hover {
 	display: inline-block;
 	font-weight: normal;
 }
-.CodeMirror{ width:100%; font-size:1.2em; transition: height 0.4s ease;}
+.CodeMirror{ font-size:1.2em; transition: height 0.4s ease; width: 100%;}
 .CodeMirror.cm-hidden{ /* display:none; */ height: 0 !important; }		
 #my-editor-div button {
 	transition: all 0.2s ease;
@@ -102,6 +95,7 @@ button:hover {
 
 .CodeMirror-linenumber {padding-left: 10px !important;padding-right: 10px !important;}
 .CodeMirror-line {padding-left: 10px !important;}
+ 
 .CodeMirror-overlayscroll-vertical div {
 	width: 8px !important;
 	border-radius: 0px !important;
@@ -111,6 +105,11 @@ button:hover {
 	border-radius: 0px !important;
 }
 
+@media (hover: hover){
+	#shader-dropdown:hover{color:#c5ffe5;padding-left: 42px;padding-right: 42px;}
+	#shader-dropdown:hover .arrow {filter: opacity(1);}
+}
+	
 @media (max-width: 768px) {
 	html {
 		font-size: 100% !important; 
@@ -134,7 +133,10 @@ button:hover {
 	#shader-dropdown {
 		-webkit-tap-highlight-color: transparent;
 	}
+	#shader-dropdown:active{color:#c5ffe5;padding-left: 42px;padding-right: 42px;}
+	#shader-dropdown:active .arrow {filter: opacity(1);}
 }
+
 @media (max-width: 768px) and (orientation: portrait) {
 	.top {padding:10px;}
 	.top button{margin:5px 10px;}
@@ -145,6 +147,10 @@ button:hover {
 	left: 50%;
 	margin-left: -140px !important;
 }
+
+
+
+
     </style>
 	
     <!-- CodeMirror Editor -->
@@ -177,7 +183,7 @@ button:hover {
 <div id ="my-editor-div" style="">
 <div id="shader-dropdown"><span class="arrow">▼▲</span><span class="codetitle">Код шейдера</span></div>
 <textarea id="textarea"></textarea>
-<button id="refreshBtn" class="cm-hidden">Обновить</button>
+<button id="refreshBtn" class="cm-hidden no-display">Обновить</button>
 </div>
 </div>
 <script>
@@ -368,16 +374,18 @@ const editor = CodeMirror.fromTextArea(textArea, {
 const cmWrapper = editor.getWrapperElement();
 let isHidden = true; cmWrapper.classList.add('cm-hidden'); 
 document.getElementById('shader-dropdown').addEventListener('click', function() {
+	  refreshBtn.classList.remove('no-display');
 	  isHidden = !isHidden;	  
 	  if (isHidden) {
 		//alert('hide')
-		cmWrapper.classList.add('cm-hidden');
+		cmWrapper.classList.add('cm-hidden');		
+		//refreshBtn.classList.remove('no-display');
 		refreshBtn.classList.add('cm-hidden');
-		r//efreshBtn.classList.remove('no-display');
-		
-		setTimeout(() => { refreshBtn.classList.add('no-display'); }, 100);		
+		// после
+		setTimeout(() => { console.log('ok-hide');refreshBtn.classList.add('no-display'); }, 200);		
 	  } else {
 		//alert('show')
+		//refreshBtn.classList.remove('no-display');
 		cmWrapper.classList.remove('cm-hidden');
 		setTimeout(() => {
 			refreshBtn.classList.remove('no-display');
