@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>WebGL Image + Sharp Text</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шейдерный генератор стереограмм</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <style>
 		html {font-size: 100%; min-height: 100vh;}
         body {
@@ -64,7 +64,7 @@
     border: 2px solid #8ffff196;
 		}
 		#my-editor-div{
-			background:#000;
+			background:#000000e7;
 			position: fixed;
 			width: 100%;
 			left: 0;
@@ -82,6 +82,7 @@
 			background-color: #000000;
 			box-shadow: inset 0 0 40px #ff00008a,  0px 0px 30px #ff7c7c14;
 			border: 2px solid #ff4f4fba;
+			filter: hue-rotate(-45deg);
 		}
 		#shader-dropdown{cursor:pointer;transition: all 0.2s ease;padding-right: 0px;}
 		#shader-dropdown:hover{color:#c5ffe5;padding-left: 42px;padding-right: 42px;}
@@ -258,7 +259,7 @@ function createPlaceholderImage(gl, imgData) {
     return texture;
 }
 
-const canvas = document.getElementById('webgl-canvas');
+const canvas  = document.getElementById('webgl-canvas');
 const gl = canvas.getContext('webgl2', { antialias: false });
 if (!gl) alert('WebGL2 не поддерживается');
 
@@ -288,7 +289,6 @@ gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
 
 
 function setupProgramLocations(gl, currentProgram) {
-
     aPositionLoc = gl.getAttribLocation(currentProgram, 'a_position');
     iChannel0Loc = gl.getUniformLocation(currentProgram, 'iChannel0');
     iChannel1Loc = gl.getUniformLocation(currentProgram, 'iChannel1');
